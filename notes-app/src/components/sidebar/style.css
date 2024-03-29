@@ -1,0 +1,23 @@
+.sidebar {
+  max-width: 575px;
+  min-width: 280px;
+}
+.sidebar .userImg {
+  width: 30px;
+  height: 30px;
+  box-sizing: content-box;
+}
+.sidebar input {
+  height: 2.5rem;
+  background-color: rgba(204, 204, 204, 0.2);
+}
+
+@media (min-width: 575px) {
+  .sidebar {
+    max-width: 350px;
+    height: 100vh;
+  }
+  .sidebar-sticky {
+    position: unset;
+  }
+}/*# sourceMappingURL=style.css.map */

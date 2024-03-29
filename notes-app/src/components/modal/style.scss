@@ -1,0 +1,15 @@
+input,
+textarea {
+    border-radius: 5px;
+    border: 1px solid gray;
+    padding-inline: 10px;
+
+    &:focus {
+        outline: none;
+        border: 1px solid black;
+    }
+}
+
+input {
+    height: 2.5rem;
+}

@@ -1,0 +1,16 @@
+.note-item {
+    max-width: 280px;
+    min-height: 250px;
+
+    .note-subtitle {
+        word-wrap: break-word;
+        white-space: normal;
+    }
+
+    input[type="checkbox"] {
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+    }
+
+}

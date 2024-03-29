@@ -1,0 +1,51 @@
+@import '~bootstrap/scss/bootstrap';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.text {
+  margin: 0px;
+}
+
+.font-16 {
+  font-size: 1rem;
+}
+
+.text-offwhite {
+  color: rgba($color: #ccc, $alpha: 1.0);
+}
+
+.font-24 {
+  font-size: 2rem;
+}
+
+.font-12 {
+  font-size: 0.7rem;
+}
+
+.text-wider {
+  letter-spacing: 2px;
+}
+
+.w-fit {
+  width: fit-content;
+}
+
+button {
+  border-radius: 5px;
+  border: none;
+  padding-inline: 10px;
+}
+
+.rounded-md-pill {
+  border-radius: 50rem;
+}
+
+@media screen and (min-width:768px) {
+  .rounded-md-pill {
+    border-radius: 0rem;
+  }
+}
