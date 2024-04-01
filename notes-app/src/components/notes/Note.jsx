@@ -6,7 +6,7 @@ const Note = ({ _id, title, description, isHidden, createdAt, openModal, bgColor
 
     const createdDate = new Date(createdAt);
     return (
-        <div className={`d-flex w-100 justify-content-between note-item flex-column p-3 rounded-4 ${bgColor}`} >
+        <div className={`d-flex w-100 flex-shrink-0 justify-content-between note-item flex-column p-3 rounded-4 ${bgColor}`} >
             <div onClick={() => openModal(_id, title, description)}>
                 <h2 className='text-capitalize text-truncate'>{title}</h2>
                 <p className='fw-light text-wrap note-subtitle'>{description}</p>

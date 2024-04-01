@@ -16,6 +16,12 @@ const notes = mongoose.Schema({
         type: String,
         required: true,
     },
+    bgColor: {
+        trim: true,
+        type: String,
+        required: true,
+        default: 'bg-danger-subtle'
+    },
     isHidden: {
         type: Boolean,
         required: true,

@@ -2,9 +2,9 @@ import React, { useRef } from 'react'
 import assets from '../../assets/index'
 import './style.css'
 import makeApiRequest from '../../helper/makeApiRequest';
-import { setUserEmail, setUserToken } from '../../helper/storage/storeUserToken';
+import { setUserToken } from '../../helper/storage/storeUserToken';
 import { useNavigate } from 'react-router-dom';
-const Login = () => {
+const Register = () => {
     const navig = useNavigate();
     const emailInput = useRef(null);
     const passwordInput = useRef(null);
@@ -16,7 +16,7 @@ const Login = () => {
         const response = await makeApiRequest(
             {
                 method: 'post',
-                url: "http://localhost:5000/login",
+                url: "http://localhost:5000/register",
                 body: {
                     email: emailInput.current.value,
                     password: passwordInput.current.value
@@ -26,7 +26,7 @@ const Login = () => {
 
         if (response.status === 200) {
             setUserToken(response.data.data.token);
-            setUserEmail(response.data.data.token);
+            setUserToken(response.data.data.email);
 
             navig('/');
         }
@@ -42,7 +42,7 @@ const Login = () => {
             <div className="login-background" >
                 <div className='login-card d-flex ps-5 flex-column justify-content-center'>
                     <div>
-                        <h1 className='m-0 my-3 font-24'>Hi there!</h1>
+                        <h1 className='m-0 my-3 font-24'>Hi there! New Here??</h1>
                         <h6 className='my-3 text-offwhite fs-6 w-75'>It's a beautiful day to save the planet</h6>
                         <form className='d-flex mt-5 flex-column'>
                             <label htmlFor="email" className=' text-white'>
@@ -53,10 +53,7 @@ const Login = () => {
                             <input ref={passwordInput} type="password" id='password' className='mt-2' />
 
                             <div className='d-flex justify-content-between align-items-center mt-2'>
-                                <a href="/register" className="text-decoration-none font-12 link-light">Register? Click here</a>
-
-
-
+                                <a href="/login" className="text-decoration-none font-12 link-light">Already a user? Login</a>
                                 <a href="" className="text-decoration-none font-12 link-light">Forgot Password?</a>
                             </div>
 
@@ -76,4 +73,4 @@ const Login = () => {
 
 }
 
-export default Login
+export default Register

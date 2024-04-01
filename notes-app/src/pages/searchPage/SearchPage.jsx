@@ -8,7 +8,7 @@ const SearchPage = () => {
     const params = (() => { return new URLSearchParams(useLocation().search).get("q") })();
 
     return (
-        <div className='p-3'>
+        <div className='p-3 w-100'>
             <h2>Search results for : {params}</h2>
             <div className='d-flex flex-row gap-2 flex-wrap'>
                 {

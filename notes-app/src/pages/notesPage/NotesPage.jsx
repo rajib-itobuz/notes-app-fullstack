@@ -7,7 +7,6 @@ import makeApiRequest from '../../helper/makeApiRequest';
 const NotesPage = () => {
 
     const [data, filterCriteria, modelOpen, token, getData] = useOutletContext();
-    const bgClasses = ['bg-danger-subtle', 'bg-info-subtle', 'bg-warning-subtle', 'bg-success-subtle'];
 
     const [selectedItems, setselectedItems] = useState([]);
 
@@ -28,48 +27,75 @@ const NotesPage = () => {
 
 
     async function hideNotes() {
-        const response = await makeApiRequest({
-            method: 'post',
-            token: token,
-            body: {
-                itemIds: selectedItems
-            },
-            url: "http://localhost:5000/hide-notes"
-        })
-        getData();
+        if (selectedItems.length > 0) {
+            const response = await makeApiRequest({
+                method: 'post',
+                token: token,
+                body: {
+                    itemIds: selectedItems
+                },
+                url: "http://localhost:5000/hide-notes"
+            })
+            setselectedItems([]);
+            if (response.status < 400) {
+                getData();
+                showToast("Note Hidden successfully")
+
+            } else {
+                showToast("Can't hide Notes")
+            }
+        }
     }
 
     async function showNotes() {
-        const response = await makeApiRequest({
-            method: 'post',
-            token: token,
-            body: {
-                itemIds: selectedItems
-            },
-            url: "http://localhost:5000/show-notes"
-        })
-        getData();
+        if (selectedItems.length > 0) {
+            const response = await makeApiRequest({
+                method: 'post',
+                token: token,
+                body: {
+                    itemIds: selectedItems
+                },
+                url: "http://localhost:5000/show-notes"
+            })
+            setselectedItems([]);
+            if (response.status < 400) {
+                getData();
+                showToast("Note unhide successfully")
+
+            } else {
+                showToast("Show notes failed")
+            }
+        }
     }
 
     async function deleteNotes() {
-        const response = await makeApiRequest({
-            method: 'post',
-            token: token,
-            body: {
-                itemIds: selectedItems
-            },
-            url: "http://localhost:5000/delete-notes"
-        })
-        getData();
+        if (selectedItems.length > 0) {
+            const response = await makeApiRequest({
+                method: 'post',
+                token: token,
+                body: {
+                    itemIds: selectedItems
+                },
+                url: "http://localhost:5000/delete-notes"
+            })
+            setselectedItems([]);
+            if (response.status < 400) {
+                getData();
+                showToast("Note deleted successfully")
+
+            } else {
+                showToast("Delete notes failed")
+            }
+        }
     }
 
 
 
     return (
-        <div className='p-3 overflow-auto'>
-            <div className='d-flex gap-2 align-items-center flex-column flex-flex-sm-row '>
-                <h2>Your {filterCriteria} Notes</h2>
-                <div className='ms-md-3 gap-1 d-flex'>
+        <div className='p-3 overflow-auto w-100'>
+            <div className='d-flex flex-wrap gap-2 align-items-center flex-column flex-sm-row justify-content-sm-between '>
+                <h2 className='flex-shrink-0 fs-3'>Your {filterCriteria} Notes</h2>
+                <div className='ms-md-3 gap-1 d-flex flex-shrink-0'>
                     <button onClick={hideNotes} className='btn btn-dark'>Hide Notes</button>
                     <button onClick={showNotes} className='btn btn-dark'>Show Notes</button>
                     <button onClick={deleteNotes} className='btn btn-dark'>Delete Notes</button>
@@ -96,8 +122,7 @@ const NotesPage = () => {
                         }
                     }).map(
                         (item, index) => {
-                            const random = Math.floor(Math.random() * bgClasses.length);
-                            return <Note key={`note${filterCriteria}-item-${index}-${item.title}`} {...item} bgColor={'bg-danger-subtle'} oncheckBoxclicked={checkboxClicked} openModal={modelOpen} />
+                            return <Note key={`note${filterCriteria}-item-${index}-${item.title}`} {...item} oncheckBoxclicked={checkboxClicked} openModal={modelOpen} />
                         })
                 }
             </div>

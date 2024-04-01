@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { getUserToken } from '../../helper/storage/storeUserToken';
-import Sidebar from '../../components/sidebar/sidebar';
+import Sidebar from '../../components/sidebar/Sidebar';
 import { Outlet } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import makeApiRequest from '../../helper/makeApiRequest';
 import assets from '../../assets';
 import './style.css'
 import ShowNewModal from '../../components/modal/Modal';
+import { showToast } from '../../helper/toaster';
 
 const Home = () => {
-    const [token, setToken] = useState(null);
-    const [email, setEmail] = useState(null)
+    const navig = useNavigate();
     const [data, setData] = useState(null);
+    const [token, setToken] = useState(localStorage.getItem("userToken"));
+    const [email, setEmail] = useState(localStorage.getItem("email"))
     const [filter, setFilter] = useState("All")
 
 
@@ -21,6 +22,13 @@ const Home = () => {
     const [modalNoteId, setModalNoteId] = useState("");
     const [modalNoteDesc, setModalNoteDesc] = useState("");
 
+    function checkUserLoggedIn() {
+        if (token && email) {
+            getData();
+        }
+        else
+            navig('/login')
+    }
 
     async function getData() {
         const response = await makeApiRequest({
@@ -28,23 +36,32 @@ const Home = () => {
             token: token,
             url: "http://localhost:5000/get-all-notes"
         })
-
         setData(response.data.data)
     }
+    const bgClasses = ['bg-danger-subtle', 'bg-info-subtle', 'bg-warning-subtle', 'bg-success-subtle'];
 
     async function addNote(title, description) {
+        const randomColor = bgClasses[Math.floor(Math.random() * bgClasses.length)];
+        // console.log(randomColor);
         const response = await makeApiRequest({
             method: 'post',
             token: token,
             body: {
                 title,
-                description
+                description,
+                bgColor: randomColor,
             },
             url: "http://localhost:5000/add-note"
         })
 
+        console.log(response);
         setShowModal(false);
-        getData();
+        if (response.status < 400) {
+            getData();
+            showToast("Note added successfully")
+        } else {
+            showToast("Duplicate Note")
+        }
     }
 
     async function updateNote(title, description) {
@@ -59,7 +76,13 @@ const Home = () => {
         })
 
         setShowModal(false);
-        getData();
+        if (response.status < 400) {
+            getData();
+            showToast("Note updated successfully")
+
+        } else {
+            showToast("Note update Error")
+        }
     }
 
     function onItemClicked(id, title, desc) {
@@ -79,20 +102,12 @@ const Home = () => {
 
 
     useEffect(() => {
-        setToken(getUserToken());
-        setEmail("adityanandi550@gmail.com");
-    }, []);
-
-    useEffect(() => {
-        if (token && email)
-            getData();
-        else
-            console.log("email & data not present");
-    }, [token, email])
+        checkUserLoggedIn();
+    }, [email, token]);
 
     return (
-        <div className='d-flex flex-column vh-100 flex-sm-row overflow-y-hidden'>
-            <Sidebar token={token} email={email} setFilter={setFilter} tags={["All", "Visible", "Latest", "Hidden"]} />
+        <div className='d-flex flex-column vh-100 flex-md-row overflow-y-hidden'>
+            <Sidebar token={token} email={email} setFilter={setFilter} filterCriteria={filter} tags={["All", "Visible", "Latest", "Hidden"]} />
             <Outlet context={[data, filter, onItemClicked, token, getData]} />
             <div role='button' className='position-fixed bg-danger plus-icon p-3 rounded-circle shadow-lg' onClick={onPlusClicked}>
                 <img src={assets.addIcon} height={"40px"} width={"40px"} alt="plus" />

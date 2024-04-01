@@ -6,10 +6,11 @@ class notesController {
         try {
             const { id } = jwt.decode(req.token)
 
-            let { title, description } = req.body;
+            let { title, description, bgColor } = req.body;
 
 
 
+            console.log(req.body);
             if (title && description) {
                 title = title.trim();
                 description = description.trim();
@@ -18,7 +19,7 @@ class notesController {
                     throw new Error("already exists")
                 }
 
-                const newNote = await NotesApp.create({ title, description, userId: id });
+                const newNote = await NotesApp.create({ title, description, bgColor, userId: id });
                 if (newNote) {
                     return res.status(200).send({ status: 200, message: "note created successfully", data: newNote });
                 }

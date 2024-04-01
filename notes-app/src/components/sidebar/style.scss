@@ -1,6 +1,4 @@
 .sidebar {
-
-    max-width: 575px;
     min-width: 280px;
 
     .userImg {
@@ -10,25 +8,15 @@
     }
 
     input {
+        max-width: 500px;
         height: 2.5rem;
         background-color: rgba($color: #ccc, $alpha: 0.2);
     }
 }
 
-
-// .sidebar-sticky {
-//     position: sticky;
-//     position: -webkit-sticky;
-//     top: 0px;
-// }
-
-@media (min-width:575px) {
+@media (min-width:768px) {
     .sidebar {
         max-width: 350px;
         height: 100vh;
-    }
-
-    .sidebar-sticky {
-        position: unset;
     }
 }
