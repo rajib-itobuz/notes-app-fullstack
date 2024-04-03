@@ -34,7 +34,7 @@ const Home = () => {
         const response = await makeApiRequest({
             method: 'get',
             token: token,
-            url: "http://localhost:5000/get-all-notes"
+            url: "https://notes-app-pkip.onrender.com/get-all-notes"
         })
         setData(response.data.data)
     }
@@ -51,7 +51,7 @@ const Home = () => {
                 description,
                 bgColor: randomColor,
             },
-            url: "http://localhost:5000/add-note"
+            url: "https://notes-app-pkip.onrender.com/add-note"
         })
 
         console.log(response);
@@ -72,7 +72,7 @@ const Home = () => {
                 title,
                 description
             },
-            url: `http://localhost:5000/update-note?id=${modalNoteId}`
+            url: `https://notes-app-pkip.onrender.com/update-note?id=${modalNoteId}`
         })
 
         setShowModal(false);

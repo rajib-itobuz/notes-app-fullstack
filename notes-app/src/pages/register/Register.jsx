@@ -16,7 +16,7 @@ const Register = () => {
         const response = await makeApiRequest(
             {
                 method: 'post',
-                url: "http://localhost:5000/register",
+                url: "https://notes-app-pkip.onrender.com/register",
                 body: {
                     email: emailInput.current.value,
                     password: passwordInput.current.value

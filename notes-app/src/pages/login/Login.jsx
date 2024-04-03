@@ -16,7 +16,7 @@ const Login = () => {
         const response = await makeApiRequest(
             {
                 method: 'post',
-                url: "http://localhost:5000/login",
+                url: "https://notes-app-pkip.onrender.com/login",
                 body: {
                     email: emailInput.current.value,
                     password: passwordInput.current.value

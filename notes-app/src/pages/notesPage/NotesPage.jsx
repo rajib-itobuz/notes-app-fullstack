@@ -34,7 +34,7 @@ const NotesPage = () => {
                 body: {
                     itemIds: selectedItems
                 },
-                url: "http://localhost:5000/hide-notes"
+                url: "https://notes-app-pkip.onrender.com/hide-notes"
             })
             setselectedItems([]);
             if (response.status < 400) {
@@ -55,7 +55,7 @@ const NotesPage = () => {
                 body: {
                     itemIds: selectedItems
                 },
-                url: "http://localhost:5000/show-notes"
+                url: "https://notes-app-pkip.onrender.com/show-notes"
             })
             setselectedItems([]);
             if (response.status < 400) {
@@ -76,7 +76,7 @@ const NotesPage = () => {
                 body: {
                     itemIds: selectedItems
                 },
-                url: "http://localhost:5000/delete-notes"
+                url: "https://notes-app-pkip.onrender.com/delete-notes"
             })
             setselectedItems([]);
             if (response.status < 400) {
